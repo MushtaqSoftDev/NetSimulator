@@ -5,6 +5,7 @@
 /* Page Background */
 body {
   background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Centering the entire form area on the screen */
@@ -13,15 +14,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
 /* The Form Card */
 .form-card {
   width: 100%;
-  max-width: 500px;
-  background: white;
-  border-radius: 15px;
+  max-width: 650px; /* Increase for row layout*/
+  border-radius: 1.25rem;
   border: none;
 }
 
@@ -30,13 +29,14 @@ body {
   color: var(--emerald-green);
   font-weight: 800;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 /* Green Labels */
 .form-label {
   color: var(--emerald-green);
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 0.9rem;
 }
 
 /* Centering the button */
@@ -57,4 +57,23 @@ body {
 
 .btn-submit:hover {
   background-color: #157347;
+}
+
+#resultsBox {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 576px) {
+  .form-card {
+    padding: 1.5rem !important;
+  }
+  .btn-submit {
+    width: 100%;
+  }
 }
