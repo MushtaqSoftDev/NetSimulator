@@ -1,0 +1,60 @@
+:root {
+  --emerald-green: #198754;
+}
+
+/* Page Background */
+body {
+  background-color: #f8f9fa;
+}
+
+/* Centering the entire form area on the screen */
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* The Form Card */
+.form-card {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 15px;
+  border: none;
+}
+
+/* Green Header inside the form */
+.form-header {
+  color: var(--emerald-green);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Green Labels */
+.form-label {
+  color: var(--emerald-green);
+  font-weight: 600;
+}
+
+/* Centering the button */
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Custom button width (not full width) */
+.btn-submit {
+  padding: 10px 40px;
+  background-color: var(--emerald-green);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-submit:hover {
+  background-color: #157347;
+}

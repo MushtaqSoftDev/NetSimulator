@@ -6,18 +6,45 @@
     <title><%= title %></title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-light">
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h1 class="display-4">Success!</h1>
-                <p class="lead">Express, EJS, and Bootstrap 5 are working.</p>
-                <hr>
-                <p>MongoDB Status: <span class="badge bg-success">Connected</span></p>
-                <button class="btn btn-primary">Bootstrap Button</button>
+
+  <div class="container form-container">
+    <div class="card shadow-lg form-card p-4 p-md-5">
+        <h1 class="form-header"><%= title %></h1>
+        <form>
+            <div class="mb-3">
+                <label for="purchase" class="form-label">Purchase Price</label>
+                <input type="text" class="form-control strict-numeric" id="purchase" placeholder="Purchase price of the property" required >
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="monthlyRent" class="form-label">Monthly Rent</label>
+                <input type="text" class="form-control strict-numeric" id="monthlyRent" placeholder="Monthly rent amount" required>
+            </div>
+            <div class="mb-3">
+                <label for="annualFee" class="form-label">Annual Fee</label>
+                <input type="text" class="form-control strict-numeric" id="annualFee" placeholder="Annual rental fee" required>
+            </div>
+            <div class="mb-3">
+                <label for="commision" class="form-label">Agency Commission</label>
+                <input type="text" class="form-control strict-numeric" id="commision" placeholder="Management agency commission" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email" required>
+               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="button-wrapper">
+                <button type="submit" class="btn btn-success btn-submit">Calculate</button>
+            </div>
+        </form>
     </div>
+  </div>
+
+  <!-- Include the validation script for non-numeric inputs -->
+  <script src="/js/validation.js">
+  </script>
+
 </body>
 </html>
