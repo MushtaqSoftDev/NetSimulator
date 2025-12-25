@@ -10,8 +10,16 @@ function calculateResults() {
     const email = document.getElementById('email').value;
 
     // 2. UI Validation
-    if (purchase <= 0 || monthlyRent <= 0 || annualFee < 0) {
-        alert("Please enter a valid amount");
+    if (purchase <= 0) {
+        alert("Please enter a valid Purchase Price greater than zero.");
+        return;
+    }
+    if (monthlyRent <= 0) {
+        alert("Monthly Rent must be greater than zero.");
+        return;
+    }
+    if (annualFee <= 0) {
+        alert("Annual Fee cannot be negative.");
         return;
     }
 
@@ -53,4 +61,24 @@ function calculateResults() {
     
     // Smooth scroll to results on mobile
     resultsBox.scrollIntoView({ behavior: 'smooth' });
+
+    // Send to server
+    const formData = {
+        purchase: purchase,
+        monthlyRent: monthlyRent,
+        annualFee: annualFee,
+        email: email
+    };
+
+
+    fetch('/submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Database Sync:', data.message);
+    })
+    .catch(error => console.error('Error saving to DB:', error));
 }
