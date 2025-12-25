@@ -1,4 +1,34 @@
 const Simulation = require('../models/simulationModel');
+const fs = require('fs');
+const path = require('path');
+const csv = require('csv-parser');
+
+/**
+ * 
+ * Helper function to calculate avg from our data
+ * This will show approximation in admin-panel depend on the user input & our own history data
+ */
+const getMarketAvg = () => {
+    return new Promise((resolve, reject) => {
+        const results = [];
+        const csvFilePath = path.join(__dirname, '../data/booking_history.csv');
+
+        // Check if file exists to prevent crash
+        if (!fs.existsSync(csvFilePath)) {
+            return resolve(300); // Fallback to 300 if file is missing
+        }
+
+        fs.createReadStream(csvFilePath)
+            .pipe(csv())
+            .on('data', (data) => results.push(parseFloat(data.listing_price)))
+            .on('end', () => {
+                const total = results.reduce((acc, price) => acc + (price || 0), 0);
+                const avg = results.length > 0 ? total / results.length : 300;
+                resolve(avg);
+            })
+            .on('error', (err) => reject(err));
+    });
+};
 
 exports.saveSimulation = async (req, res) => {
     try {
@@ -24,6 +54,21 @@ exports.saveSimulation = async (req, res) => {
             });
         }
 
+        // DATA-DRIVE PREDICTION
+        // WE get the avg from CSV file
+        const marketAverageListing = await getMarketAvg();
+        console.log("Market Avg Listing Price from CSV:", marketAverageListing);
+        let predictionMsg = "";
+
+        // compare user input monthlyRent with market average
+        if (m <= marketAverageListing * 1.1) {
+            predictionMsg = "High Probability: Matches historical data.";
+        } else if (m <= marketAverageListing * 1.5) {
+            predictionMsg = "Moderate Probability: Slightly above average.";
+        } else {
+            predictionMsg = "Low Probability: Rent is significantly higher then market history.";
+        }
+
         // 2. Perform calculations
         const annualGross = m * 12;
         const net1 = annualGross - (annualGross * 0.30) - f;
@@ -44,13 +89,16 @@ exports.saveSimulation = async (req, res) => {
             resY1: roi1,
             resY2: roi2,
             resY3: roi3,
-            resMonthly: avgMonthly
+            resMonthly: avgMonthly,
+            predictionScore: predictionMsg
         });
 
         await newSim.save();
+        console.log("Simulation saved:", newSim);
 
         // Return sucess
-        res.status(200).json({ message: 'Simulation saved successfully.' });
+        res.status(200).json({ message: 'Simulation saved successfully.', prediction: predictionMsg });
+        
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error/Data not saved'});

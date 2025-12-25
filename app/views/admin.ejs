@@ -31,6 +31,7 @@
                                 <th>Y2 Comm</th>
                                 <th>Y3 Comm</th>
                                 <th>Monthly Avg</th>
+                                <th>Prediction</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -45,6 +46,15 @@
                                     <td class="text-success fw-bold"><%= sim.resY2 %>%</td>
                                     <td class="text-success fw-bold"><%= sim.resY3 %>%</td>
                                     <td class="text-success fw-bold">$<%= sim.resMonthly %></td>
+                                    <td>
+                                        <% if (sim.predictionScore) { %>
+                                            <span class="badge <%= sim.predictionScore.includes('High') ? 'bg-success' : 'bg-warning text-dark' %>">
+                                                <%= sim.predictionScore %>
+                                            </span>
+                                        <% } else { %>
+                                                <span class="text-muted">No Prediction</span>
+                                        <% } %>
+                                    </td>
                                     <td><%= new Date(sim.createdAt).toLocaleDateString() %></td>
                                 </tr>
                             <% }) %>

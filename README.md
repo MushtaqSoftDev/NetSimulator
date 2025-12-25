@@ -1,30 +1,40 @@
-# Setup is ready & working
-## Mathematics Formula:
-### Inputs:
-Purchase: user input for example: 25000
-Monthly Rent: 800 (Multiply by 12) = 9600 Gross per year
-Annual Fee: 500
+# Property Simulator:
+A data-driven property investment simulator that calculates Net Monthly income and return on investment(ROI) over a 3-year period, featuring a market prediction based on historical datasets.
 
-#### Year 1 calculation:
-1. Commission(30%): 9600 * 0.30 = 2880
-2. Net Income: 9600(Gross) - 2880(Comm) - 500(Fee) = 6220
-3. Return: (6220 / 25000) * 100 = 24.88%
+### Features:
+ROI Calculation: Automated 3-year projection with decreasing agency commissions (30%, 25%, 20%).
 
-#### Year 2 calculation:
-1. Commission(25%): 9600 * 0.25 = 2400
-2. Net Income: 9600(Gross) - 2400(Comm) - 500(Fee) = 6700
-3. Return: (6700 / 25000) * 100 = 26.80%
+Data-Driven Prediction: Validates user rent inputs against a historical CSV dataset of property listings.
 
-#### Year 3 calculation:
-1. Commission(20%): 9600 * 0.20 = 1920
-2. Net Income: 9600(Gross) - 1920(Comm) - 500(Fee) = 7180
-3. Return: (7180 / 25000) * 100 = 28.72%
+Admin Dashboard: Admin interface to monitor all simulation requests and emails.
 
-### For Avg monthly Net income:
- avg = (annualGross(9600) - commYear1(2880) - annualFee(500)) / 12 = 518.33 
+Responsive Design: Fully optimized for mobile and desktop using Bootstrap 5.
 
-After 3 years then every year is 20% commission
+Dockerized Stack: Instant deployment with Node.js, MongoDB, and Mongo-Express.
 
-### About Inputs field:
-All inputs field are using input type=text but bound by javascript validation so input cannot accept any alphabets neither any (@,#,etc) only numbers from 0-9 & also validation function assure only one decimal is present in whole value.
-For larger/medium devices input fields are cover like in 1 row 2 fields but for small device like mobile 1 row have only 1 field for better UX
+
+### Tech Stack:
+Frontend: EJS, Bootstrap 5
+Backend: Node.js, Express.js
+Database: MongoDB (via Mongoose)
+DevOps: Docker, Docker Compose
+Data Processing: csv-parser for historical analysis
+
+### Prediction Logic:
+ ROI calculator calculate the avg market listing price & then compares user's monthlyRent input:
+  * Hight Probability: Input is within 110% of market average.
+  * Moderate Probability: Input is within 150% of market average.
+  * Low Probability: Input exceeds 150% of market average (Risk).
+
+
+### Prerequisites:
+ Docker & Docker Compose installed.
+ Sign up the containers:
+    docker-compose up --build
+ Access the application:
+    App: localhost:3000
+    For admin-dashboard: localhost:3000/admin
+    Database GUI: localhost:8081
+
+
+

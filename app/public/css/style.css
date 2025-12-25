@@ -4,24 +4,43 @@
 
 /* Page Background */
 body {
-  background-color: #f8f9fa;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), 
+                      url('https://images.unsplash.com/photo-1533158326339-7f3cf2404354?auto=format&fit=crop&q=80&w=2000');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    /* Changed from centering everything to a column layout */
+    display: flex;
+    flex-direction: column; 
+    color: #333;
 }
 
-/* Centering the entire form area on the screen */
+/* Ensure the navbar takes full width at the top */
+.navbar {
+    width: 100%;
+}
+
+/* Updated Centering Logic: Only the container expands to fill remaining space */
 .form-container {
-  min-height: 100vh;
+  flex-grow: 1; /* This pushes the navbar to the top and fills the rest of the screen */
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
-/* The Form Card */
+/* The Form Card with Glassmorphism */
 .form-card {
   width: 100%;
-  max-width: 650px; /* Increase for row layout*/
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.4); 
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 1.25rem;
-  border: none;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
 }
 
 /* Green Header inside the form */
@@ -35,7 +54,7 @@ body {
 /* Green Labels */
 .form-label {
   color: var(--emerald-green);
-  font-weight: 400;
+  font-weight: 400; /* Increased for better legibility on glass */
   font-size: 0.9rem;
 }
 
@@ -46,19 +65,23 @@ body {
   margin-top: 1.5rem;
 }
 
-/* Custom button width (not full width) */
+/* Custom button width */
 .btn-submit {
-  padding: 10px 40px;
+  padding: 12px 40px;
   background-color: var(--emerald-green);
+  color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
+  transition: transform 0.2s ease;
 }
 
 .btn-submit:hover {
   background-color: #157347;
+  transform: scale(1.05);
 }
 
+/* Results section animation */
 #resultsBox {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -72,6 +95,7 @@ body {
 @media (max-width: 576px) {
   .form-card {
     padding: 1.5rem !important;
+    margin: 10px;
   }
   .btn-submit {
     width: 100%;
