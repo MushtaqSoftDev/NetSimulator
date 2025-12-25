@@ -5,12 +5,23 @@ exports.saveSimulation = async (req, res) => {
         const { purchase, monthlyRent, annualFee, email } = req.body;
 
         // Server side validation of input fields
+        const errors = [];
         const p = parseFloat(purchase);
         const m = parseFloat(monthlyRent);
         const f = parseFloat(annualFee);
 
-        if (!p || !m || !f || !email) {
-            return res.status(400).json({ message: 'Field are necessary' });
+
+        if (!p || isNaN(p) || p <= 0) errors.push("Valid Purchas Price is required.");
+        if (!m || isNaN(m) || m <= 0) errors.push("Valid Rent Amount is required.");
+        if (!f || isNaN(f) || f <= 0) errors.push("Valid Annual Fee is required.");
+        if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.push("A valid Email account is required.");
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Validation Error",
+                errors: errors
+            });
         }
 
         // 2. Perform calculations
