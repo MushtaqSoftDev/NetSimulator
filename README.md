@@ -29,12 +29,12 @@ Data Processing: csv-parser for historical analysis
 
 ### Prerequisites:
  Docker & Docker Compose installed.
- Sign up the containers:
-    docker-compose up --build
- Access the application:
-    App: localhost:3000
-    For admin-dashboard: localhost:3000/admin
-    Database GUI: localhost:8081
+ * Sign up the containers:
+      docker-compose up --build
+ * Access the application:
+      App: localhost:3000
+      For admin-dashboard: localhost:3000/admin
+      Database GUI: localhost:8081
 
 
 

@@ -5,7 +5,7 @@ var simulationController = require('../controller/simulationController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Emerld Simulator' });
+  res.render('index', { title: 'Net Simulator' });
 });
 // Submit simulation data
 router.post('/submit', simulationController.saveSimulation);
